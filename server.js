@@ -77,6 +77,20 @@ app.get('/', function (req, res) {
   }
 });
 
+app.post('/', function(req, res) {
+if (!db) {
+    initDb(function(err){});
+  }
+  if (db) {
+    var col = db.collection('error');
+    // Create a document with request IP and current time of request
+    col.insert(req.customReportContent);
+    
+  } else {
+    res.render('index.html', { pageCountMessage : null});
+  }
+});
+
 app.get('/pagecount', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
