@@ -85,8 +85,6 @@ if (!db) {
   }
   if (db) {
     var col = db.collection('erroresaccountdb');
-    // Create a document with request IP and current time of request
-
     db.insert(req.body, function (err, result) {
       if (err)
          res.send('Error');
@@ -94,7 +92,9 @@ if (!db) {
         res.send('Success');
 
     });
-
+  } else {
+    res.send('{ sin conexion-1 }');
+  }
 
 });
 
