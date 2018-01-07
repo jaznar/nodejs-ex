@@ -3,12 +3,11 @@ var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
 
-var bodyParser = require('body-parser');
     
 Object.assign=require('object-assign')
 
 app.engine('html', require('ejs').renderFile);
-app.use(bodyParser.json())
+
 app.use(morgan('combined'))
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
