@@ -77,7 +77,7 @@ app.get('/', function (req, res) {
   }
 });
 
-app.post('/', function(req, res) {
+app.post('/adderror', function(req, res) {
 if (!db) {
     initDb(function(err){});
   }
@@ -91,7 +91,7 @@ if (!db) {
   }
 });
 
-app.get('/pageerror', function (req, res) {
+app.get('/geterrores', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
   if (!db) {
