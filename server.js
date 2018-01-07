@@ -84,10 +84,16 @@ if (!db) {
   if (db) {
     var col = db.collection('erroresaccountdb');
     // Create a document with request IP and current time of request
-    col.insert(req.customReportContent);
+     col.insert({ip: req.ip, date: Date.now()});
+    col.count(function(err, count){
+      if (err) {
+        console.log('Error running count. Message:\n'+err);
+      }
+      res.send('{ erroresaccountdb: ' + count + '}');
+    });
     
   } else {
-    res.render('index.html', { pageCountMessage : null});
+    res.send('{ pageCount: -1 }');
   }
 });
 
