@@ -2,10 +2,13 @@
 var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
+
+var bodyParser = require('body-parser');
     
 Object.assign=require('object-assign')
 
 app.engine('html', require('ejs').renderFile);
+app.use(bodyParser.json())
 app.use(morgan('combined'))
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
@@ -84,17 +87,16 @@ if (!db) {
   if (db) {
     var col = db.collection('erroresaccountdb');
     // Create a document with request IP and current time of request
-     col.insert({ip: req.ip, date: Date.now()});
-    col.count(function(err, count){
-      if (err) {
-        console.log('Error running count. Message:\n'+err);
-      }
-      res.send('{ erroresaccountdb: ' + count + '}');
+
+    db.insert(req.body, function (err, result) {
+      if (err)
+         res.send('Error');
+      else
+        res.send('Success');
+
     });
-    
-  } else {
-    res.send('{ pageCount: -1 }');
-  }
+
+
 });
 
 app.get('/geterrores', function (req, res) {
@@ -104,9 +106,10 @@ app.get('/geterrores', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-    db.collection('erroresaccountdb').count(function(err, count ){
-      res.send('{ erroresaccountdb: ' + count + '}');
-    });
+     db.collection("erroresaccountdb").find().toArray(function(err, data) {
+         res.send(data);
+     });	
+
   } else {
     res.send('{ pageCount: -1 }');
   }
