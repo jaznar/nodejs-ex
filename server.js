@@ -91,6 +91,22 @@ if (!db) {
   }
 });
 
+app.get('/pageerror', function (req, res) {
+  // try to initialize the db on every request if it's not already
+  // initialized.
+  if (!db) {
+    initDb(function(err){});
+  }
+  if (db) {
+    db.collection('error').error(function(err, error ){
+      res.send('{ error: ' + error + '}');
+    });
+  } else {
+    res.send('{ error: no puede ser }');
+  }
+});
+
+
 app.get('/pagecount', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
