@@ -82,7 +82,7 @@ if (!db) {
     initDb(function(err){});
   }
   if (db) {
-    var col = db.collection('error');
+    var col = db.collection('erroresaccountdb');
     // Create a document with request IP and current time of request
     col.insert(req.customReportContent);
     
@@ -98,8 +98,8 @@ app.get('/geterrores', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-    db.collection('counts').count(function(err, count ){
-      res.send('{ pageCount: ' + count + '}');
+    db.collection('erroresaccountdb').count(function(err, count ){
+      res.send('{ erroresaccountdb: ' + count + '}');
     });
   } else {
     res.send('{ pageCount: -1 }');
