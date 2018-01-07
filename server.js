@@ -98,11 +98,11 @@ app.get('/geterrores', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-    db.collection('error').error(function(err, error ){
-      res.send('{ error: ' + error + '}');
+    db.collection('counts').count(function(err, count ){
+      res.send('{ pageCount: ' + count + '}');
     });
   } else {
-    res.send('{ error: no puede ser }');
+    res.send('{ pageCount: -1 }');
   }
 });
 
