@@ -114,7 +114,7 @@ app.get('/geterrores', function (req, res) {
      });	
 
   } else {
-    res.send('{ pageCount: -1 }');
+    res.send('{ sin conexion-1 }');
   }
 });
 
