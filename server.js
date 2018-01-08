@@ -3,6 +3,11 @@ var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
 
+var bodyParser = require('body-parser')
+app.use( bodyParser.json())
+app.use(bodyParser.urlencoded({ extended:true})) 
+
+
     
 Object.assign=require('object-assign')
 
