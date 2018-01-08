@@ -121,7 +121,7 @@ app.get('/geterrores', function (req, res) {
   }
 });
 
-app.
+
 
 app.get('/pagecount', function (req, res) {
   // try to initialize the db on every request if it's not already
