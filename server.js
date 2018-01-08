@@ -3,6 +3,9 @@ var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.json())
+
 
    
 Object.assign=require('object-assign')
@@ -88,7 +91,7 @@ if (!db) {
     var col = db.collection('erroresaccountdb');
     var myobj = { ip: req.ip, date: Date.now(), request:req.report };	
     
-    col.insert(myobj, function (err, result) {
+    col.insert(req.body, function (err, result) {
       if (err){
          res.send('Error');
       } else {
@@ -118,6 +121,7 @@ app.get('/geterrores', function (req, res) {
   }
 });
 
+app.
 
 app.get('/pagecount', function (req, res) {
   // try to initialize the db on every request if it's not already
