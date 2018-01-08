@@ -86,7 +86,9 @@ if (!db) {
   }
   if (db) {
     var col = db.collection('erroresaccountdb');
-    db.insert(req, function (err, result) {
+    var myobj = { name: "Julio company", address: "la mia" };	
+    
+    col.insert(myobj, function (err, result) {
       if (err){
          res.send('Error');
       } else {
