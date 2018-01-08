@@ -86,7 +86,7 @@ if (!db) {
   }
   if (db) {
     var col = db.collection('erroresaccountdb');
-    db.insert(req.body, function (err, result) {
+    db.insert(req, function (err, result) {
       if (err){
          res.send('Error');
       } else {
