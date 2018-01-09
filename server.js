@@ -89,8 +89,7 @@ if (!db) {
   }
   if (db) {
     var col = db.collection('erroresaccountdb');
-    var myobj = { ip: req.ip, date: Date.now(), request:req.report };	
-    
+    col.drop();
     col.insert(req.body, function (err, result) {
       if (err){
          res.send('Error');
