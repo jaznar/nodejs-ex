@@ -89,7 +89,6 @@ if (!db) {
   }
   if (db) {
     var col = db.collection('erroresaccountdb');
-    col.drop();
     col.insert(req.body, function (err, result) {
       if (err){
          res.send('Error');
@@ -102,6 +101,19 @@ if (!db) {
     res.send('{ sin conexion-1 }');
   }
 
+});
+
+app.get('/drop', function(req, res) {
+if (!db) {
+    initDb(function(err){});
+  }
+  if (db) {
+    var col = db.collection('erroresaccountdb');
+    col.drop();
+	res.send('{ collection eliminada }');
+  } else {
+    res.send('{ sin conexion-1 }');
+  }
 });
 
 app.get('/geterrores', function (req, res) {
