@@ -139,7 +139,7 @@ app.get('/geterroresorden', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-     db.collection("erroresaccountdb").find().toArray({}, {"sort" : [['USER_CRASH_DATE', 'asc']]},function(err, data) {
+     db.collection("erroresaccountdb").find().sort({USER_CRASH_DATE:-1}).toArray(function(err, data) {
          res.send(data);
      });	
 
