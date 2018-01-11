@@ -132,7 +132,21 @@ app.get('/geterrores', function (req, res) {
   }
 });
 
+app.get('/geterroresorden', function (req, res) {
+  // try to initialize the db on every request if it's not already
+  // initialized.
+  if (!db) {
+    initDb(function(err){});
+  }
+  if (db) {
+     db.collection("erroresaccountdb").find().toArray({}, {"sort" : [['USER_CRASH_DATE', 'asc']]},function(err, data) {
+         res.send(data);
+     });	
 
+  } else {
+    res.send('{ sin conexion-1 }');
+  }
+});
 
 app.get('/pagecount', function (req, res) {
   // try to initialize the db on every request if it's not already
