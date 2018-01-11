@@ -123,22 +123,6 @@ app.get('/geterrores', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-     db.collection("erroresaccountdb").find().toArray(function(err, data) {
-         res.send(data);
-     });	
-
-  } else {
-    res.send('{ sin conexion-1 }');
-  }
-});
-
-app.get('/geterroresorden', function (req, res) {
-  // try to initialize the db on every request if it's not already
-  // initialized.
-  if (!db) {
-    initDb(function(err){});
-  }
-  if (db) {
      db.collection("erroresaccountdb").find().sort({USER_CRASH_DATE:-1}).toArray(function(err, data) {
          res.send(data);
      });	
@@ -147,6 +131,24 @@ app.get('/geterroresorden', function (req, res) {
     res.send('{ sin conexion-1 }');
   }
 });
+
+app.get('/geterrorestrace', function (req, res) {
+  // try to initialize the db on every request if it's not already
+  // initialized.
+  
+  if (!db) {
+    initDb(function(err){});
+  }
+  if (db) {
+     db.collection("erroresaccountdb").find().sort({USER_CRASH_DATE:-1}).toArray(STACK_TRACE:1,function(err, data) {
+         res.send(data);
+     });	
+
+  } else {
+    res.send('{ sin conexion-1 }');
+  }
+});
+
 
 app.get('/pagecount', function (req, res) {
   // try to initialize the db on every request if it's not already
