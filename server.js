@@ -140,8 +140,8 @@ app.get('/geterrorestrace', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-     db.collection("erroresaccountdb").find().sort({USER_CRASH_DATE:-1}).toArray(function(err, data) {
-         res.send(data.STACK_TRACE);
+     db.collection("erroresaccountdb").find({},{STACK_TRACE:1}).sort({USER_CRASH_DATE:-1}).toArray(function(err, data) {
+         res.send();
      });	
 
   } else {
