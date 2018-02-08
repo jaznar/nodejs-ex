@@ -149,6 +149,23 @@ app.get('/geterrorestrace', function (req, res) {
   }
 });
 
+app.get('/geterrorescount', function (req, res) {
+  // try to initialize the db on every request if it's not already
+  // initialized.
+  
+  if (!db) {
+    initDb(function(err){});
+  }
+  if (db) {
+     db.collection("erroresaccountdb").count(function(err, count) {
+         res.send('Nº Errores: '+ count);
+     });	
+
+  } else {
+    res.send('{ sin conexion-1 }');
+  }
+});
+
 
 app.get('/pagecount', function (req, res) {
   // try to initialize the db on every request if it's not already
