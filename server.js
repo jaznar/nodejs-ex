@@ -166,6 +166,30 @@ app.get('/geterrorescount', function (req, res) {
   }
 });
 
+app.get('/getgroupbymarca', function (req, res){
+
+  if (!db){
+	  intDb(function(err){});
+  }
+  if (db){
+	db.collection("erroresaccountdb").col.aggregate(
+      [
+          { "$group": {
+              "BUILD.BRAND": "$erroresaccountdb",
+              "count": { "$sum": 1 }
+          }}
+      ],
+      function(err,data) {
+         if (err) console.log(err);
+         res.send( data );
+      }
+  );	  
+  } else {
+	res.send('{ sin conexion-1 }');  
+  }
+	
+});
+
 
 app.get('/pagecount', function (req, res) {
   // try to initialize the db on every request if it's not already
