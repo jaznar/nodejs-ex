@@ -211,7 +211,7 @@ app.get('/getgroupbymarca', function (req, res){
 	  intDb(function(err){});
   }
   if (db){
-	db.collection("erroresaccountdb").aggregate({$group : {_id: "$BUILD.BRAND", total: {$sum: 1}}}, 	
+	db.collection("erroresaccountdb").aggregate({$group : {_id: "$BUILD.BRAND", total: {$sum: 1}}}, {$sort: {_id: -1}}, 	
       function(err,data) {
          if (err) console.log(err);
          res.send( data );
