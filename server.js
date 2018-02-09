@@ -223,6 +223,38 @@ app.get('/getgroupbymarca', function (req, res){
 	
 });
 
+app.get('/getgroupbyversionandroid', function (req, res){
+	// Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+  if (!db){
+	  intDb(function(err){});
+  }
+  if (db){
+	db.collection("erroresaccountdb").aggregate({$group : {_id: { $toUpper: "$ANDROID_VERSION" }, total: {$sum: 1}}}, {$sort: {_id: -1}}, 	
+      function(err,data) {
+         if (err) console.log(err);
+         res.send( data );
+      }
+  );	  
+  } else {
+	res.send('{ sin conexion-1 }');  
+  }
+	
+});
+
+
+
 
 app.get('/pagecount', function (req, res) {
   // try to initialize the db on every request if it's not already
