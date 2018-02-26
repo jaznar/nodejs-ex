@@ -41,7 +41,7 @@ if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
 var db = null,
     dbDetails = new Object();
 
-var query = { APP_VERSION_NAME: "Punto 24" };	
+var query = { APP_VERSION_NAME: "Punto 23" };	
 
 var initDb = function(callback) {
   if (mongoURL == null) return;
