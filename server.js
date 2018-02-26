@@ -41,6 +41,8 @@ if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
 var db = null,
     dbDetails = new Object();
 
+var query = { APP_VERSION_NAME: "Punto 24" };	
+
 var initDb = function(callback) {
   if (mongoURL == null) return;
 
@@ -137,7 +139,7 @@ app.get('/geterrores', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-	  var query = { APP_VERSION_NAME: "Punto 24" };
+//	 var query = { APP_VERSION_NAME: "Punto 24" }; 	  
      db.collection("erroresaccountdb").find(query).sort({USER_CRASH_DATE:-1}).toArray(function(err, data) {
          res.send(data);
      });	
@@ -155,7 +157,7 @@ app.get('/geterrorestrace', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-	 var query = { APP_VERSION_NAME: "Punto 24" }; 
+//	 var query = { APP_VERSION_NAME: "Punto 24" }; 
      db.collection("erroresaccountdb").find(query,{STACK_TRACE:1}).sort({USER_CRASH_DATE:-1}).toArray(function(err, data) {
          res.send(data);
      });	
@@ -186,7 +188,7 @@ app.get('/geterrorescount', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-	  var query = { APP_VERSION_NAME: "Punto 24" }; 
+//	  var query = { APP_VERSION_NAME: "Punto 24" }; 
      db.collection("erroresaccountdb").find(query).count(function(err, count) {
          res.send('Nº Errores: '+ count);
      });	
@@ -274,7 +276,7 @@ app.get('/getgroupbyerror', function (req, res){
 	  intDb(function(err){});
   }
   if (db){
-	  var query = { APP_VERSION_NAME: "Punto 24" }; 
+//	  var query = { APP_VERSION_NAME: "Punto 24" }; 
 	db.collection("erroresaccountdb").aggregate({$match: query},{$group : {_id: "$STACK_TRACE", total: {$sum: 1}}}, {$sort: {total: -1}}, 	
       function(err,data) {
          if (err) console.log(err);
