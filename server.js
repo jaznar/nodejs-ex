@@ -186,7 +186,7 @@ app.get('/geterrorescount', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-     db.collection("erroresaccountdb").count(function(err, count) {
+     db.collection("erroresaccountdb").find({APP_VERSION_NAME: "Punto 24"}).count(function(err, count) {
          res.send('Nº Errores: '+ count);
      });	
 
