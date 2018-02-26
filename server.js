@@ -304,17 +304,11 @@ app.get('/versionesApp', function (req, res){
 	  intDb(function(err){});
   }
   if (db){
-	db.collection("erroresaccountdb").aggregate({$group : {APP_VERSION: "$APP_VERSION_NAME"}}, {$sort: {APP_VERSION: -1}}, 	
+	db.collection("erroresaccountdb").aggregate({$group : {_id: "$APP_VERSION_NAME"}}, {$sort: {_id: -1}}, 	
       function(err,data) {
          if (err) console.log(err);
          res.send( data );
       }
-	  
-//	db.collection("erroresaccountdb").distinct("APP_VERSION_NAME", 	
-//      function(err,data) {
-//         if (err) console.log(err);
-//         res.send( data.sort({APP_VERSION_NAME:-1}) );
-//      }
   );	  
   } else {
 	res.send('{ sin conexion-1 }');  
