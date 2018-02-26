@@ -273,7 +273,7 @@ app.get('/getgroupbyerror', function (req, res){
 	  intDb(function(err){});
   }
   if (db){
-	db.collection("erroresaccountdb").find({APP_VERSION_NAME: "Punto 24"}).aggregate({$group : {_id: "$STACK_TRACE", total: {$sum: 1}}}, {$sort: {total: -1}}, 	
+	db.collection("erroresaccountdb").aggregate({$group : {_id: "$STACK_TRACE", total: {$sum: 1}}}, {$sort: {total: -1}}, 	
       function(err,data) {
          if (err) console.log(err);
          res.send( data );
