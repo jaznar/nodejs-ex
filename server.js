@@ -155,8 +155,8 @@ app.get('/geterrorestrace', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-	  
-     db.collection("erroresaccountdb").find({APP_VERSION_NAME: "Punto 24"},{STACK_TRACE:1}).sort({USER_CRASH_DATE:-1}).toArray(function(err, data) {
+	 var query = { APP_VERSION_NAME: "Punto 24" }; 
+     db.collection("erroresaccountdb").find(query,{STACK_TRACE:1}).sort({USER_CRASH_DATE:-1}).toArray(function(err, data) {
          res.send(data);
      });	
 
@@ -186,7 +186,8 @@ app.get('/geterrorescount', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-     db.collection("erroresaccountdb").find({APP_VERSION_NAME: "Punto 24"}).count(function(err, count) {
+	  var query = { APP_VERSION_NAME: "Punto 24" }; 
+     db.collection("erroresaccountdb").find(query).count(function(err, count) {
          res.send('Nº Errores: '+ count);
      });	
 
@@ -273,7 +274,8 @@ app.get('/getgroupbyerror', function (req, res){
 	  intDb(function(err){});
   }
   if (db){
-	db.collection("erroresaccountdb").aggregate({$match: { APP_VERSION_NAME: "Punto 24" }},{$group : {_id: "$STACK_TRACE", total: {$sum: 1}}}, {$sort: {total: -1}}, 	
+	  var query = { APP_VERSION_NAME: "Punto 24" }; 
+	db.collection("erroresaccountdb").aggregate({$match: query},{$group : {_id: "$STACK_TRACE", total: {$sum: 1}}}, {$sort: {total: -1}}, 	
       function(err,data) {
          if (err) console.log(err);
          res.send( data );
