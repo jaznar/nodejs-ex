@@ -284,6 +284,48 @@ app.get('/getgroupbyerror', function (req, res){
 });
 
 
+app.get('/versionesApp', function (req, res){
+	// Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+  if (!db){
+	  intDb(function(err){});
+  }
+  if (db){
+	db.collection("erroresaccountdb").distinct("APP_VERSION_NAME", 	
+      function(err,data) {
+         if (err) console.log(err);
+         res.send( data );
+      }
+  );	  
+  } else {
+	res.send('{ sin conexion-1 }');  
+  }
+	
+});
+
+//ojo pendiente
+app.put('/putupdateerror', function (req, res){
+  if (!db){
+	  intDb(function(err){});
+  }
+  if (db){
+	  req.body.selected
+	db.collection("erroresaccountdb").update({"_id" :ObjectId("4e93037bbf6f1dd3a0a9541a") },{$set : {"solucionado":true}});
+  } else {
+	res.send('{ sin conexion-1 }');  
+  }
+});
 
 app.get('/pagecount', function (req, res) {
   // try to initialize the db on every request if it's not already
