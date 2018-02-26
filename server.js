@@ -139,8 +139,7 @@ app.get('/geterrores', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-//	 var query = { APP_VERSION_NAME: "Punto 24" }; 	  
-     db.collection("erroresaccountdb").find(query).sort({USER_CRASH_DATE:-1}).toArray(function(err, data) {
+     db.collection("erroresaccountdb").find(req.query).sort({USER_CRASH_DATE:-1}).toArray(function(err, data) {
          res.send(data);
      });	
 
@@ -157,8 +156,7 @@ app.get('/geterrorestrace', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-//	 var query = { APP_VERSION_NAME: "Punto 24" }; 
-     db.collection("erroresaccountdb").find(query,{STACK_TRACE:1}).sort({USER_CRASH_DATE:-1}).toArray(function(err, data) {
+     db.collection("erroresaccountdb").find(req.query,{STACK_TRACE:1}).sort({USER_CRASH_DATE:-1}).toArray(function(err, data) {
          res.send(data);
      });	
 
