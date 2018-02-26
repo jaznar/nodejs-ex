@@ -188,7 +188,6 @@ app.get('/geterrorescount', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-	  console.log("RESULTADO:"+req.params);
      db.collection("erroresaccountdb").find(req.query).count(function(err, count) {
          res.send('Nº Errores: '+ count);
      });	
@@ -276,8 +275,7 @@ app.get('/getgroupbyerror', function (req, res){
 	  intDb(function(err){});
   }
   if (db){
-//	  var query = { APP_VERSION_NAME: "Punto 24" }; 
-	db.collection("erroresaccountdb").aggregate({$match: query},{$group : {_id: "$STACK_TRACE", total: {$sum: 1}}}, {$sort: {total: -1}}, 	
+	db.collection("erroresaccountdb").aggregate({$match: req.query},{$group : {_id: "$STACK_TRACE", total: {$sum: 1}}}, {$sort: {total: -1}}, 	
       function(err,data) {
          if (err) console.log(err);
          res.send( data );
