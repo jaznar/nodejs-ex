@@ -304,7 +304,7 @@ app.get('/versionesApp', function (req, res){
 	  intDb(function(err){});
   }
   if (db){
-	db.collection("erroresaccountdb").aggregate({$group : {APP_VERSION_NAME: "$APP_VERSION_NAME"}}, {$sort: {APP_VERSION_NAME: -1}}, 	
+	db.collection("erroresaccountdb").aggregate({$group : {APP_VERSION: "$APP_VERSION_NAME"}}, {$sort: {APP_VERSION: -1}}, 	
       function(err,data) {
          if (err) console.log(err);
          res.send( data );
