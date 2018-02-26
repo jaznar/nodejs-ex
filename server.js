@@ -307,7 +307,7 @@ app.get('/versionesApp', function (req, res){
 	db.collection("erroresaccountdb").distinct("APP_VERSION_NAME", 	
       function(err,data) {
          if (err) console.log(err);
-         res.send( data.sort() );
+         res.send( data.sort({APP_VERSION_NAME:-1}) );
       }
   );	  
   } else {
