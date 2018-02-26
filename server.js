@@ -188,6 +188,7 @@ app.get('/geterrorescount', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
+	  res.send(req.query);
      db.collection("erroresaccountdb").find(req.query).count(function(err, count) {
          res.send('Nº Errores: '+ count);
      });	
